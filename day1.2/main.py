@@ -15,13 +15,6 @@ def chunks(iterable, n):
         j += 1
 
 numbers = [int(line.strip()) for line in sys.stdin]
-
-increases = 0
-previous = math.inf  # First chunk cannot be an increase, so compare to infinity
-for chunk in chunks(numbers, 3):
-    current = sum(chunk)
-    if current > previous:
-        increases += 1
-    previous = current
-
+triplets = chunks(numbers, 3)
+increases = sum(sum(b) > sum(a) for a, b in chunks(triplets, 2))
 print(increases)
