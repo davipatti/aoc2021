@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import math
 import sys
 
 
@@ -14,7 +13,7 @@ def chunks(iterable, n):
         i += 1
         j += 1
 
-numbers = [int(line.strip()) for line in sys.stdin]
-triplets = chunks(numbers, 3)
-increases = sum(sum(b) > sum(a) for a, b in chunks(triplets, 2))
+numbers = (int(line) for line in sys.stdin)
+triplet_sums = (sum(triplet) for triplet in chunks(numbers, 3))
+increases = sum(b > a for a, b in chunks(triplet_sums, 2))
 print(increases)
