@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
+
 import sys
+import math
 
 increases = 0
-previous = None
+previous = math.inf
 for line in sys.stdin:
-    if previous is not None:
-        current = int(line.strip())
-        if current > previous:
-            increases += 1
-        previous = current
-    else:
-        previous = int(line.strip())
+    current = int(line)
+    if current > previous:
+        increases += 1
+    previous = current
 print(increases)
