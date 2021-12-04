@@ -23,7 +23,6 @@ def read_input():
 class Grid:
     def __init__(self, raw_grid):
         self.rows = raw_grid
-        self.cols = list(zip(*raw_grid))
         self.seen = [[False for _ in range(5)] for _ in range(5)]
 
     def update(self, n):
@@ -38,7 +37,7 @@ class Grid:
                 return True
 
     @property
-    def sum_unmarked(self):
+    def sum_unseen(self):
         return sum(
             self.rows[i][j]
             for i, j in product(range(5), range(5))
@@ -51,7 +50,7 @@ def part_1(calls, raw_grids):
     for call, grid in product(calls, grids):
         grid.update(call)
         if grid.wins:
-            return grid.sum_unmarked * call
+            return grid.sum_unseen * call
 
 
 def part_2(calls, raw_grids):
@@ -60,7 +59,7 @@ def part_2(calls, raw_grids):
         for grid in grids:
             grid.update(call)
             if grid.wins and len(grids) == 1:
-                return grid.sum_unmarked * call
+                return grid.sum_unseen * call
 
         # keep only grids that haven't won yet
         grids = [g for g in grids if not g.wins]
