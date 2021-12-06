@@ -13,14 +13,10 @@ def timestep(counts):
     return new
 
 
-def timesteps(counts, n):
+def sum_after_n_days(counts, n):
     for _ in range(n):
         counts = timestep(counts)
-    return counts
-
-
-def sum_after_n_days(initial, n):
-    return sum(timesteps(initial, n).values())
+    return sum(counts.values())
 
 
 if __name__ == "__main__":
