@@ -10,7 +10,6 @@ def sequence(a, b):
 
 class Line:
     def __init__(self, raw_line):
-        self.raw_line = raw_line
         self.a, self.b = [
             [int(n) for n in line.split(",")] for line in raw_line.split(" -> ")
         ]
@@ -27,24 +26,22 @@ class Line:
             return zip(sequence(self.a[0], self.b[0]), sequence(self.a[1], self.b[1]))
 
 
-def part_1(raw_lines):
+def part_1(lines):
     counts = Counter()
-    for raw_line in raw_lines:
-        line = Line(raw_line)
+    for line in lines:
         if line.is_vertical or line.is_horizontal:
             counts.update(line.points)
     return sum(n > 1 for n in counts.values())
 
 
-def part_2(raw_lines):
+def part_2(lines):
     counts = Counter()
-    for raw_line in raw_lines:
-        line = Line(raw_line)
+    for line in lines:
         counts.update(line.points)
     return sum(n > 1 for n in counts.values())
 
 
 if __name__ == "__main__":
-    raw_lines = list(sys.stdin)
-    print(part_1(raw_lines))
-    print(part_2(raw_lines))
+    lines = [Line(l) for l in sys.stdin]
+    print(part_1(lines))
+    print(part_2(lines))
