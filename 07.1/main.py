@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import sys
-from functools import partial
 
 
 def fuel_cost(i, positions):
@@ -12,5 +11,4 @@ def fuel_cost(i, positions):
 if __name__ == "__main__":
     positions = [int(n) for n in next(sys.stdin).split(",")]
     x = range(min(positions), max(positions) + 1)
-    best = min(x, key=partial(fuel_cost, positions=positions))
-    print(fuel_cost(best, positions))
+    print(min(fuel_cost(i, positions) for i in x))
