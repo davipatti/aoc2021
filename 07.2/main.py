@@ -6,8 +6,8 @@ from functools import partial, lru_cache
 
 @lru_cache
 def move_cost(x):
-    """Cost of moving x positions"""
-    return sum(range(x, 0, -1))
+    """Cost of moving a single crab x positions"""
+    return sum(range(x))
 
 
 def fuel_cost(i, positions):
