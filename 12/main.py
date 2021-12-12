@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-from collections import defaultdict
+from collections import defaultdict, deque
 
 
 def is_lower(string):
@@ -33,9 +33,9 @@ class CaveSystem:
             if a != "start" and b != "end":
                 self.adjacent[b].add(a)
 
-        self.paths = []
+        self.n_paths = 0
 
-    def visit(self, node, valid, path=None):
+    def visit(self, node, valid, path):
         """
         Recursively visit child nodes.
 
@@ -43,10 +43,9 @@ class CaveSystem:
         valid: callable testing if it's valid to visit a node given the existing path
         path: history of nodes that have been visited
         """
-        path = [] if path is None else path
         path.append(node)
         if node == "end":
-            self.paths.append(tuple(path))
+            self.n_paths += 1
         else:
             children = [child for child in self.adjacent[node] if valid(child, path)]
             for child in children:
@@ -56,8 +55,8 @@ class CaveSystem:
 
 def find_paths(pairs, child_valid):
     cs = CaveSystem(pairs)
-    cs.visit("start", child_valid)
-    return len(cs.paths)
+    cs.visit("start", child_valid, deque())
+    return cs.n_paths
 
 
 if __name__ == "__main__":
