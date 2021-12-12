@@ -2,8 +2,10 @@
 
 import sys
 from collections import defaultdict, deque
+from functools import lru_cache
 
 
+@lru_cache
 def is_lower(string):
     return string == string.lower()
 
@@ -18,10 +20,7 @@ def is_valid_part_2(node, existing):
     else:
         # If there any small caves that have been visited twice, return False
         small_caves = [cave for cave in existing if is_lower(cave)]
-        if any(small_caves.count(cave) > 1 for cave in set(small_caves)):
-            return False
-        else:
-            return True
+        return len(small_caves) == len(set(small_caves))
 
 
 class CaveSystem:
