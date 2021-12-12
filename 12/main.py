@@ -11,14 +11,14 @@ def is_lower(string):
 
 
 def is_valid_part_1(node, existing):
-    return False if (node in existing) and is_lower(node) else True
+    return True if not is_lower(node) or node not in existing else False
 
 
 def is_valid_part_2(node, existing):
-    if node not in existing or not is_lower(node):
+    if not is_lower(node) or node not in existing:
         return True
     else:
-        # If there any small caves that have been visited twice, return False
+        # False if any small caves that have been visited twice
         small_caves = [cave for cave in existing if is_lower(cave)]
         return len(small_caves) == len(set(small_caves))
 
@@ -46,9 +46,9 @@ class CaveSystem:
         if node == "end":
             self.n_paths += 1
         else:
-            children = [child for child in self.adjacent[node] if valid(child, path)]
-            for child in children:
-                self.visit(child, valid, path)
+            for child in self.adjacent[node]:
+                if valid(child, path):
+                    self.visit(child, valid, path)
         path.pop()
 
 
