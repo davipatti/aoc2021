@@ -31,7 +31,6 @@ def fold(points, dim, loc):
 def render(points):
     x = [pt[0] for pt in points]
     y = [pt[1] for pt in points]
-    points = set((pt[0] + min(x), pt[1] + min(y)) for pt in points)
     output = ""
     for j in range(max(y) + 1):
         for i in range(max(x) + 1):
