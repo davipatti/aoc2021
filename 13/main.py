@@ -2,14 +2,13 @@
 
 import re
 import sys
-from operator import itemgetter
 
 
 def parse_lines(lines):
     folds = []
     points = set()
     for line in lines:
-        match = re.match("fold along ([yx])=(\d+)", line)
+        match = re.match(r"fold along ([yx])=(\d+)", line)
         if match:
             dim, loc = match.groups()
             folds.append((dim, int(loc)))
