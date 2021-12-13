@@ -21,9 +21,9 @@ def parse_lines(lines):
 def fold(points, dim, loc):
     dim = {"x": 0, "y": 1}[dim]
     new_points = set()
-    for point in points:
-        new = list(point)
-        new[dim] = point[dim] if point[dim] < loc else loc - (point[dim] - loc)
+    for pt in points:
+        new = list(pt)
+        new[dim] = pt[dim] if pt[dim] < loc else loc - (pt[dim] - loc)
         new_points.add(tuple(new))
     return new_points
 
@@ -40,20 +40,18 @@ def render(points):
     return output
 
 
-def part_1(lines):
-    folds, points = parse_lines(lines)
+def part_1(folds, points):
     points = fold(points, folds[0][0], folds[0][1])
     return len(points)
 
 
-def part_2(lines):
-    folds, points = parse_lines(lines)
+def part_2(folds, points):
     for f in folds:
         points = fold(points, f[0], f[1])
     return render(points)
 
 
 if __name__ == "__main__":
-    lines = [line.strip() for line in sys.stdin]
-    print(part_1(lines))
-    print(part_2(lines))
+    folds, points = parse_lines([line.strip() for line in sys.stdin])
+    print(part_1(folds, points))
+    print(part_2(folds, points))
